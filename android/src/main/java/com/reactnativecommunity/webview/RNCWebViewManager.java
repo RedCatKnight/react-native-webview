@@ -939,6 +939,15 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
     }
 
     @Override
+    public void doUpdateVisitedHistory (WebView view, String url, boolean isReload) {
+      ((RNCWebView) view).dispatchEvent(
+        view,
+        new TopLoadingStartEvent(
+          view.getId(),
+          createWebViewEvent(view, url)));
+    }
+
+    @Override
     public void onReceivedSslError(final WebView webView, final SslErrorHandler handler, final SslError error) {
         // onReceivedSslError is called for most requests, per Android docs: https://developer.android.com/reference/android/webkit/WebViewClient#onReceivedSslError(android.webkit.WebView,%2520android.webkit.SslErrorHandler,%2520android.net.http.SslError)
         // WebView.getUrl() will return the top-level window URL.
